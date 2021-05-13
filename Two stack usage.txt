@@ -1,0 +1,90 @@
+#include <iostream>
+#include <string.h>
+#include "LStack.h"
+using namespace std;
+/*
+ *  Created on: 10.01.2021
+ *  Author: Mert ihsan US 
+*/
+
+
+string converter(string adress)
+{
+  int lenght=adress.length();
+  string newAdress=adress.substr(4,(lenght-8));
+  return newAdress;
+}
+
+int main()
+{
+	Stack<string> backward_stack;
+	Stack<string> forward_stack;
+    string adress;
+	char choice;
+	while( (choice!='Q') && (choice!='q'))
+	{
+		cout<<"Choose(N)ew page, go (B)ack one page, go (F)orward one page (Q)uit:";
+		cin>>choice;
+		switch(choice)
+		{		
+			case 'N':
+			case 'n':
+				      if(adress.length()>0)
+					  {
+					  	 backward_stack.push(adress);
+					  }
+					  cout<<"Enter new page address:";
+					  cin>>adress;
+					 
+			          cout<<"You are currently visiting"<<" "<<converter(adress)<<endl;
+			          if(!forward_stack.isEmpty())
+			          {
+			          	forward_stack.clear();
+			          	cout<<"Forward Stack cleared."<<endl;
+					  }
+					  break;
+					  	  
+			case 'B':
+			case 'b': 
+			          if(backward_stack.isEmpty())
+			          {
+				       cout<<"Error! There is no Backward page."<<endl;
+			           cout<<"You are currently visiting"<<" "<<converter(adress)<<endl;
+			          }
+			          else
+			           {
+				       cout<<"You have gone back one page."<<endl;
+				       forward_stack.push(adress);
+				       adress=backward_stack.pop();
+				       cout<<"You are currently visiting"<<" "<<converter(adress)<<endl;
+				       }
+				       break;
+				  
+			case 'F':
+			case 'f':
+			          if(forward_stack.isEmpty())
+		              { 
+			           cout<<"Error! There is no Forward page."<<endl;
+		               cout<<"You are currently visiting"<<" "<<converter(adress)<<endl;
+			          }          
+	                else
+		              {
+		              	cout<<"You have gone to the Forward page."<<endl;
+		              	adress=forward_stack.pop();
+		              	backward_stack.push(adress);
+		              	cout<<"You are currently visiting"<<" "<<converter(adress)<<endl;	
+					  }
+			        	break;
+					  
+			case 'Q':
+			case 'q':
+			          cout<<"Have a nice day."<<endl;
+					  break;
+			          default : cerr<<"Invalid Input!!"<<endl;
+			          break;	  	
+		} 		  	
+
+	    } 
+	
+	    }
+	
